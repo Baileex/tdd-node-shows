@@ -1,3 +1,7 @@
-CREATE DATABASE mocha_chai_tv_shows;
-CREATE DATABASE mocha_chai_tv_shows_test;
-CREATE DATABASE mocha_chai_tv_shows_prod;
+DROP DATABASE IF EXISTS vehicle_checkin_test;
+DROP DATABASE IF EXISTS vehicle_checkin;
+DROP DATABASE IF EXISTS vehicle_checkin_prod;
+
+CREATE DATABASE vehicle_checkin_test;
+CREATE DATABASE vehicle_checkin;
+CREATE DATABASE vehicle_checkin_prod;

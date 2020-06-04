@@ -1,14 +1,14 @@
-version: '2.4'
+version: '3.8'
 
 services:
 
-  node_app:
+  api:
     build:
       context: .
       args:
         - NODE_ENV=development
-        - DATABASE_URL=postgresql://postgres:postgres@db:5432/mocha_chai_tv_shows
-        - DATABASE_URL_TEST=postgresql://postgres:postgres@db:5432/mocha_chai_tv_shows_test
+        - DATABASE_URL=postgresql://postgres:postgres@db:5432/vehicle_checkin
+        - DATABASE_URL_TEST=postgresql://postgres:postgres@db:5432/vehicle_checkin_test
     # you can use legacy debug config or new inspect
     # NOTE: if nodemon isn't restarting on changes, you might be on Windows
     # which has trouble seeing file changes, so add -L to use legacy polling
@@ -34,11 +34,10 @@ services:
       # this will overwrite the default node_modules dir in container so it won't conflict with our
       # /opt/node_app/node_modules location. Thanks to PR from @brnluiz
       - notused:/opt/node_app/app/node_modules
-    depends_on:
-      db:
-        condition: service_healthy
-    healthcheck:
-      disable: true
+    depends_on: [
+ 'db'
+    ]
+
 
   db:
     build:
@@ -55,6 +54,7 @@ services:
       start_period: 10s
       timeout: 4s
       retries: 3
-
+    volumes:
+    - ./postgres-data:/var/lib/postgresql/data
 volumes:
   notused:

@@ -1,5 +1,5 @@
 # pull base image
-FROM node:12.16.1-buster-slim
+FROM node:latest
 
 # set our node environment, either development or production
 # defaults to production, compose overrides this to development on build and run
@@ -29,7 +29,7 @@ WORKDIR /opt/node_app
 ENV PATH /opt/node_app/.bin:$PATH
 USER node
 COPY ./node_app/package.json ./node_app/pnpm-lock.yaml ./
-RUN pnpm install
+RUN npm install
 
 # check every 30s to ensure this service returns HTTP 200
 HEALTHCHECK --interval=30s CMD node healthcheck.js
